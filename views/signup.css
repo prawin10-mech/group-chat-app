@@ -6,6 +6,8 @@
 
 body {
   background-color: antiquewhite;
+  background-image: url("/views/chatApp.webp");
+  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +15,7 @@ body {
 }
 
 .container {
-  border: 2px solid cyan;
+  border: 5px double cyan;
   width: 500px;
   display: flex;
   justify-content: center;
