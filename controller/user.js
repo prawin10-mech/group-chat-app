@@ -2,12 +2,6 @@ const User = require("../models/user");
 
 const Bcrypt = require("bcrypt");
 
-exports.getHome = (req, res) => {
-  const data = req.body;
-  console.log(data);
-  res.status(200).json({ message: "its now worked" });
-};
-
 exports.postUser = async (req, res) => {
   try {
     const name = req.body.name;
@@ -25,7 +19,8 @@ exports.postUser = async (req, res) => {
       res.status(200).json(user);
     });
   } catch (err) {
-    console.log(err);
+    console.log("user already exist");
+    res.status(400).send(err);
   }
 };
 

@@ -3,14 +3,18 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:52330",
+  })
+);
 app.use(bodyParser.json({ extended: false }));
 
 const sequelize = require("./util/database");
 
-const signUpRouter = require("./routes/signup");
+const userRouter = require("./routes/user");
 
-app.use(signUpRouter);
+app.use(userRouter);
 const port = 8080;
 
 sequelize

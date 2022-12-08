@@ -5,20 +5,18 @@ async function signup(e) {
     const email = e.target.email.value;
     const phone = e.target.phone.value;
     const password = e.target.password.value;
-
     const obj = {
       name: name,
       email: email,
       phone: phone,
       password: password,
     };
-
     console.log(obj);
     try {
       const user = await axios.post("http://localhost:8080/adduserdata", obj);
-      document.body.innerHTML += `<div id="error" style="color: green";>successfully logged please wait until it redirects</div>`;
+      document.body.innerHTML += `<div id="error" style="color: blue";>successfully Signed up please wait until it redirects</div>`;
       setTimeout(() => {
-        //window.location.href = "login.html";
+        window.location.href = "login.html";
         console.log("hello");
       }, 2000);
 
