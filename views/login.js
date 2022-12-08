@@ -11,5 +11,15 @@ async function loginUser(e) {
     "http://localhost:8080/postloginuser",
     userLogin
   );
-  console.log(user);
+  const body = document.body.innerHTML;
+  document.body.innerHTML += `<div id="error" style="color: papayawhip"; font-size="2rem";>${user.data.message}</div>`;
+  localStorage.setItem("token", user.data.token);
+  setTimeout(() => {
+    if (user.data.success) {
+      alert("user successfully logged");
+    }
+  }, 2000);
+  setTimeout(() => {
+    document.body.innerHTML = body;
+  }, 3000);
 }

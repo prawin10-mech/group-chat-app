@@ -1,5 +1,7 @@
 const User = require("../models/user");
 
+const jwt = require("jsonwebtoken");
+
 const Bcrypt = require("bcrypt");
 
 exports.postUser = async (req, res) => {
@@ -24,10 +26,38 @@ exports.postUser = async (req, res) => {
   }
 };
 
+function generateJwtToken(id, email) {
+  return jwt.sign({ userId: id, email: email }, process.env.TOKEN_SECRET);
+}
+
 exports.postloginuser = async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  res.send(email);
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+    const user = await User.findAll({ where: { email: email } });
+    console.log(password);
+    Bcrypt.compare(password, user[0].password, (err, result) => {
+      console.log(result);
+      if (err) {
+        console.log(err);
+      }
+      if (result) {
+        res.send({
+          success: true,
+          message:
+            "you have logged in successfully please wait until it redirects",
+          token: generateJwtToken(user[0].id, user[0].email),
+        });
+      } else {
+        res.send({
+          success: false,
+          message: "your password was incorrect",
+        });
+      }
+    });
+  } catch (err) {
+    res.json({ message: "User Not found Please Try to Sign up" });
+  }
 };
 
 exports.getUser = async (req, res, next) => {
