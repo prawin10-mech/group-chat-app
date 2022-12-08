@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+#textBox {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  background-color: darkslategray;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#textBox input {
+  padding: 10px;
+  width: 600px;
+}
+
+#textBox button {
+  background-color: aqua;
+  margin-left: 15px;
+  padding: 10px;
+}
+
+#add-chats {
+  font-size: 2rem;
+}

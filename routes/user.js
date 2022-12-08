@@ -9,4 +9,6 @@ router.post("/postloginuser", userController.postloginuser);
 
 router.get("/getuser/:userEmail", userController.getUser);
 
+router.get("/newusercheck", userController.findLatestUser);
+
 module.exports = router;

@@ -42,7 +42,7 @@ exports.postloginuser = async (req, res) => {
         console.log(err);
       }
       if (result) {
-        res.send({
+        res.status(200).json({
           success: true,
           message:
             "you have logged in successfully please wait until it redirects",
@@ -56,8 +56,16 @@ exports.postloginuser = async (req, res) => {
       }
     });
   } catch (err) {
-    res.json({ message: "User Not found Please Try to Sign up" });
+    res.status(400).json({ message: "User Not found Please Try to Sign up" });
   }
+};
+
+exports.findLatestUser = async (req, res) => {
+  const user = await User.findAll({
+    attributes: [sequelize.fn("max", sequelize.col("id"))],
+    group: ["category_id"],
+  });
+  console.log(user);
 };
 
 exports.getUser = async (req, res, next) => {

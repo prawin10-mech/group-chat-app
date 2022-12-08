@@ -16,7 +16,7 @@ async function loginUser(e) {
   localStorage.setItem("token", user.data.token);
   setTimeout(() => {
     if (user.data.success) {
-      alert("user successfully logged");
+      window.location.href = "./chatScreen/mainscreen.html";
     }
   }, 2000);
   setTimeout(() => {
