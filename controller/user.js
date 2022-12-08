@@ -24,6 +24,12 @@ exports.postUser = async (req, res) => {
   }
 };
 
+exports.postloginuser = async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  res.send(email);
+};
+
 exports.getUser = async (req, res, next) => {
   const userEmail = req.params.email;
   console.log(userEmail);
