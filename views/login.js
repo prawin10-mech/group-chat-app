@@ -14,9 +14,11 @@ async function loginUser(e) {
   const body = document.body.innerHTML;
   document.body.innerHTML += `<div id="error" style="color: papayawhip"; font-size="2rem";>${user.data.message}</div>`;
   localStorage.setItem("token", user.data.token);
+  const userName = user.data.user[0].name;
+  localStorage.setItem("user", userName);
   setTimeout(() => {
     if (user.data.success) {
-      window.location.href = "./chatScreen/mainscreen.html";
+      window.location.href = "./chat screen/mainscreen.html";
     }
   }, 2000);
   setTimeout(() => {

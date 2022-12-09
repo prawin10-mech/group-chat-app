@@ -35,7 +35,6 @@ exports.postloginuser = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const user = await User.findAll({ where: { email: email } });
-    console.log(password);
     Bcrypt.compare(password, user[0].password, (err, result) => {
       console.log(result);
       if (err) {
@@ -47,6 +46,7 @@ exports.postloginuser = async (req, res) => {
           message:
             "you have logged in successfully please wait until it redirects",
           token: generateJwtToken(user[0].id, user[0].email),
+          user,
         });
       } else {
         res.send({
@@ -66,6 +66,11 @@ exports.findLatestUser = async (req, res) => {
     group: ["category_id"],
   });
   console.log(user);
+};
+
+exports.getUsers = async (req, res) => {
+  const users = await User.findAll();
+  res.status(200).json(users);
 };
 
 exports.getUser = async (req, res, next) => {

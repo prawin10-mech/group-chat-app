@@ -9,6 +9,8 @@ router.post("/postloginuser", userController.postloginuser);
 
 router.get("/getuser/:userEmail", userController.getUser);
 
+router.get("/getusers", userController.getUsers);
+
 router.get("/newusercheck", userController.findLatestUser);
 
 module.exports = router;

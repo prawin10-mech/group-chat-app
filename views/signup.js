@@ -14,6 +14,7 @@ async function signup(e) {
     console.log(obj);
     try {
       const user = await axios.post("http://localhost:8080/adduserdata", obj);
+      console.log(user.name);
       document.body.innerHTML += `<div id="error" style="color: blue";>successfully Signed up please wait until it redirects</div>`;
       setTimeout(() => {
         window.location.href = "login.html";
