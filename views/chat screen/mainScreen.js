@@ -3,14 +3,21 @@ let chats = document.getElementById("add-chats");
 const userName = localStorage.getItem("user");
 const token = localStorage.getItem("token");
 
-let userDetails = document.getElementsByClassName("users");
+let userDetails = document.getElementById("users");
 document.addEventListener("DOMContentLoaded", async () => {
   const users = await axios.get("http://localhost:8080/getusers");
   console.log(users.data);
   for (let i = 0; i < users.data.length; i++) {
     const user = users.data[i];
-    const childNode = `<div>${user.name}</div>`;
-    userDetails.innerHTML += childNode;
+    if (userName === user.name) {
+      const childNode = `<div><h3>${user.name} *</h3></div>`;
+      console.log(childNode);
+      userDetails.innerHTML += childNode;
+    } else {
+      const childNode = `<div><h3>${user.name}</h3></div>`;
+      console.log(childNode);
+      userDetails.innerHTML += childNode;
+    }
   }
   console.log(userDetails);
   const userChats = await axios.get("http://localhost:8080/getuserchats");
