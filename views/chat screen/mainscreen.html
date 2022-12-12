@@ -11,12 +11,24 @@
     <div class="container">
       <h1>Chat App</h1>
     </div>
+    <div id="groups">
+      <h2>GROUPS</h2>
+      <button id="createAGroup" onclick="showCreateGroupBtn()">
+        create group
+      </button>
+      <div class="addGroup">
+        <input type="text" id="groupName" placeholder="enter group name" />
+        <div id="availableUsers"></div>
+        <button id="createBtn" onclick="createGroup()">create</button>
+      </div>
+      <div id="addGroups"></div>
+    </div>
     <div id="add-chats"></div>
     <form onsubmit="sendMessage(event)" id="textBox">
       <input type="text" placeholder="Enter message" id="message" />
       <button id="send">SEND</button>
     </form>
-    <div class="users" id="users"><h1>USERS</h1></div>
+    <div class="users" id="users"><h2>USERS</h2></div>
     <button onclick="logout()" id="logout">Logout</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
     <script src="mainScreen.js"></script>

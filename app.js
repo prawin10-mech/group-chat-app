@@ -16,19 +16,29 @@ const sequelize = require("./util/database");
 
 const userRouter = require("./routes/user");
 const chatsRouter = require("./routes/chats");
+const groupRouter = require("./routes/groups");
 
 app.use(userRouter);
 app.use(chatsRouter);
+app.use(groupRouter);
 
 //models
 const Chat = require("./models/chats");
 const User = require("./models/user");
+const Group = require("./models/groups");
+const UserGroup = require("./models/usergroup");
 
 const port = 8080;
 
 //associations
 User.hasMany(Chat);
 Chat.belongsTo(User);
+
+Chat.belongsTo(Group);
+Group.hasMany(Chat);
+
+Group.belongsToMany(User, { through: UserGroup });
+User.belongsToMany(Group, { through: UserGroup });
 
 sequelize
   .sync()

@@ -17,7 +17,7 @@ async function signup(e) {
       console.log(user.name);
       document.body.innerHTML += `<div id="error" style="color: blue";>successfully Signed up please wait until it redirects</div>`;
       setTimeout(() => {
-        window.location.href = "login.html";
+        window.location.href = "index.html";
         console.log("hello");
       }, 2000);
 

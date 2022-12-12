@@ -5,11 +5,14 @@ exports.postUserChats = async (req, res) => {
     const userName = req.body.user;
     const message = req.body.message;
     const userId = req.user.id;
+    const groupId = req.body.groupId;
 
+    console.log(req.group);
     const chat = await Chat.create({
       name: userName,
       message: message,
       userId: userId,
+      groupId: groupId,
     });
 
     res.status(200).json(chat);
@@ -20,8 +23,8 @@ exports.postUserChats = async (req, res) => {
 
 exports.getUserChats = async (req, res) => {
   try {
-    console.log(req.user);
-    const chat = await Chat.findAll();
+    const id = req.params.id;
+    const chat = await Chat.findAll({ where: { groupId: id } });
     res.send(chat);
   } catch (err) {
     console.log(err);

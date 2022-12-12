@@ -10,5 +10,5 @@ router.post(
   chatsRouter.postUserChats
 );
 
-router.get("/getuserchats", chatsRouter.getUserChats);
+router.get("/getuserchats/:id", chatsRouter.getUserChats);
 module.exports = router;
