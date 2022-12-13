@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(express.static("views"));
+app.use(express.static("public"));
 app.use(
   cors({
     origin: "http://localhost:52330",

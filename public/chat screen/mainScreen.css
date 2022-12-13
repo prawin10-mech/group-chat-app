@@ -130,3 +130,19 @@ body {
 #groupButtons:focus {
   background-color: red;
 }
+
+#removeUsers {
+  width: 250px;
+  margin: 20px;
+  height: 300px;
+}
+
+#removeUsers option {
+  padding: 10px;
+  font-size: 20px;
+}
+#removeUsersBtn {
+  padding: 10px;
+  background-color: red;
+  color: #fff;
+}

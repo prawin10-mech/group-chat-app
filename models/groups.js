@@ -10,6 +10,7 @@ const Groups = sequelize.define("groups", {
     autoIncrement: true,
   },
   groupName: Sequelize.STRING,
+  createdBy: Sequelize.STRING,
 });
 
 module.exports = Groups;
