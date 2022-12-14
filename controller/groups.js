@@ -7,12 +7,13 @@ const { Op } = require("sequelize");
 
 exports.postCreateGroup = async (req, res) => {
   try {
-    const createdBy = req.body.createdBy;
+    const createdBy = req.body.createdBy[0];
     const groupName = req.body.groupName;
     const group = await Group.create({
       groupName: groupName,
       createdBy,
     });
+    console.log(createdBy);
     for (let i = 0; i < req.body.userIds.length; i++) {
       const userid = req.body.userIds[i];
       const usergroup = await UserGroup.create({

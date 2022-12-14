@@ -55,7 +55,8 @@ async function createGroup() {
   const groupName = document.getElementById("groupName").value;
   const user = [];
   const userIds = [];
-  const createdBy = userName;
+  const createdBy = [];
+  createdBy.push(userName);
 
   for (var option of document.getElementById("selectUsers").options) {
     if (option.selected) {
@@ -125,16 +126,22 @@ async function getGroupChats(id) {
   }
   for (let i = 0; i < user.length; i++) {
     const details = user[i];
-    if (localCreatedBy === details) {
+    let flag = false;
+    for (let j = 0; j < localCreatedBy.length; j++) {
+      if (localCreatedBy[j] === details) {
+        flag = true;
+
+        break;
+      }
+    }
+    if (flag == true) {
       const childNode = `<div><h3>${details}  <i class="fa-solid fa-crown"></i></h3></div>`;
-      userDetails.innerHTML += childNode;
-    } else if (userName === details) {
-      const childNode = `<div><h3>${details} *</h3></div>`;
       userDetails.innerHTML += childNode;
     } else {
       const childNode = `<div><h3>${details}</h3></div>`;
       userDetails.innerHTML += childNode;
     }
+    console.log(flag);
   }
   chats.innerHTML = "";
   if (flag == true) {
@@ -194,32 +201,30 @@ async function editUsersInGroup(groupId) {
     a.innerText = `${userName}`;
     childNode.appendChild(a);
   }
-  userDetails.appendChild(childNode);
+  for (let i = 0; i < localCreatedBy.length; i++) {
+    userDetails.appendChild(childNode);
+    if (userName === localCreatedBy[i]) {
+      const removeBtn = document.createElement("button");
+      removeBtn.setAttribute("id", "removeUsersBtn");
+      removeBtn.setAttribute("onclick", `removeUserFromGroup(${groupId})`);
+      removeBtn.innerText = "REMOVE";
+      userDetails.appendChild(removeBtn);
+      console.log(removeBtn);
 
-  console.log(userName);
-  console.log(localCreatedBy);
-  console.log(userName == localCreatedBy);
-  if (userName === localCreatedBy) {
-    const removeBtn = document.createElement("button");
-    removeBtn.setAttribute("id", "removeUsersBtn");
-    removeBtn.setAttribute("onclick", `removeUserFromGroup(${groupId})`);
-    removeBtn.innerText = "REMOVE";
-    userDetails.appendChild(removeBtn);
-    console.log(removeBtn);
+      const adminBtn = document.createElement("button");
+      adminBtn.setAttribute("id", "adminBtn");
+      adminBtn.setAttribute("onclick", `makeAdminForGroup(event)`);
+      adminBtn.innerText = "MAKE ADMIN";
+      userDetails.appendChild(adminBtn);
 
-    const adminBtn = document.createElement("button");
-    adminBtn.setAttribute("id", "adminBtn");
-    adminBtn.setAttribute("onclick", `makeAdminForGroup(${groupId})`);
-    adminBtn.innerText = "MAKE ADMIN";
-    userDetails.appendChild(adminBtn);
-
-    const addBtn = document.createElement("button");
-    addBtn.setAttribute("id", "addUsersBtn");
-    addBtn.setAttribute("onclick", `addUserToGroup(${groupId})`);
-    addBtn.innerText = "ADD USER";
-    userDetails.appendChild(addBtn);
-  } else {
-    console.log(userDetails);
+      const addBtn = document.createElement("button");
+      addBtn.setAttribute("id", "addUsersBtn");
+      addBtn.setAttribute("onclick", `addUserToGroup(${groupId})`);
+      addBtn.innerText = "ADD USER";
+      userDetails.appendChild(addBtn);
+    } else {
+      console.log(userDetails);
+    }
   }
 }
 
@@ -307,5 +312,45 @@ async function adduserToGroups(e) {
     createdBy,
   };
   console.log(obj);
+  localStorage.setItem(`${groupName}`, JSON.stringify(obj));
+}
+
+async function makeAdminForGroup(e) {
+  e.preventDefault();
+  userDetails.innerHTML = "<h2>MAKE ADMIN</h2>";
+  let childNode = `<form onsubmit="MakeAdminToGroups(event)">
+                      <label for="makeAdmin">Admin: </label>
+                      <input id="makeAdmin" type="text" placeholder="enter username" />
+                      <button>Make admin</button>
+                      </form>`;
+  userDetails.innerHTML += childNode;
+}
+
+async function MakeAdminToGroups(e) {
+  e.preventDefault();
+  let groupId = localStorage.getItem(`groupId`);
+  const groupname = await axios.get(
+    `http://localhost:8080/groups/groupname/${groupId}`
+  );
+  const groupName = groupname.data[0].groupName;
+  let groupuserdetails = localStorage.getItem(`${groupName}`);
+
+  groupuserdetails = JSON.parse(groupuserdetails);
+
+  const user = groupuserdetails.user;
+  const userIds = groupuserdetails.userIds;
+  const createdBy = groupuserdetails.createdBy;
+
+  const adminUser = document.getElementById("makeAdmin").value;
+  createdBy.push(adminUser);
+  console.log(adminUser);
+  console.log(createdBy);
+  const obj = {
+    groupName,
+    groupId,
+    createdBy,
+    user,
+    userIds,
+  };
   localStorage.setItem(`${groupName}`, JSON.stringify(obj));
 }
