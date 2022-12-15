@@ -29,7 +29,7 @@ body {
 #textBox {
   padding: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   position: fixed;
   bottom: 0;
   background-color: darkslategray;
@@ -51,7 +51,8 @@ body {
 #add-chats {
   position: relative;
   top: 40px;
-  left: 400px;
+  left: 250px;
+  bottom: 80px;
   font-size: 2rem;
   display: flex;
   flex-direction: column;
@@ -145,4 +146,36 @@ body {
   padding: 10px;
   background-color: red;
   color: #fff;
+}
+
+#fileBox {
+  z-index: 55;
+  position: fixed;
+  bottom: 10px;
+  right: 30px;
+  background-color: #fff;
+  padding: 5px;
+}
+
+#fileBox input {
+  padding: 5px;
+}
+
+#fileBox button {
+  background-color: greenyellow;
+  color: red;
+  cursor: pointer;
+  font-weight: bolder;
+  box-shadow: 2px 2px 5px green, 2px 2px 5px green;
+  padding: 5px;
+}
+
+@media screen and (max-width: 900px) {
+  #textBox {
+  }
+  #textBox input {
+    width: 300px;
+    position: relative;
+    left: 50px;
+  }
 }

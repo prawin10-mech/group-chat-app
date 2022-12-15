@@ -5,11 +5,7 @@ const cors = require("cors");
 const app = express();
 
 app.use(express.static("public"));
-app.use(
-  cors({
-    origin: "http://localhost:52330",
-  })
-);
+app.use(cors());
 app.use(bodyParser.json({ extended: false }));
 
 const sequelize = require("./util/database");

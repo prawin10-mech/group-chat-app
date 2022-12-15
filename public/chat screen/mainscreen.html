@@ -32,6 +32,11 @@
       <input type="text" placeholder="Enter message" id="message" />
       <button id="send">SEND</button>
     </form>
+
+    <form onsubmit="sendImage(event)" id="fileBox">
+      <input type="file" id="file" id="file" />
+      <button id="send">SEND IMAGE</button>
+    </form>
     <div class="users" id="users"><h2>USERS</h2></div>
     <button onclick="logout()" id="logout">Logout</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>

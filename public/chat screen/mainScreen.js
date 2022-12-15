@@ -34,9 +34,10 @@ async function sendMessage(e) {
     }
   );
   console.log(user);
-
+  console.log(message.length);
   const childNode = `<div>you: ${message}</div>`;
   chats.innerHTML += childNode;
+
   document.getElementById("message").value = "";
 }
 
@@ -158,8 +159,14 @@ async function getGroupChats(id) {
       const message = data.message;
 
       if (userName === name) {
-        const childNode = `<div id="addedMessages">you: ${message}</div>`;
-        chats.innerHTML += childNode;
+        if (message.length > 50) {
+          const childNode = `<div>you: <img src="../images/imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.jpg"></div>`;
+          console.log(childNode);
+          chats.innerHTML += childNode;
+        } else {
+          const childNode = `<div id="addedMessages">you: ${message}</div>`;
+          chats.innerHTML += childNode;
+        }
       } else {
         const childNode = `<div >${name}: ${message}</div>`;
         chats.innerHTML += childNode;
@@ -353,4 +360,28 @@ async function MakeAdminToGroups(e) {
     userIds,
   };
   localStorage.setItem(`${groupName}`, JSON.stringify(obj));
+}
+
+async function sendImage(e) {
+  e.preventDefault();
+  const groupId = localStorage.getItem("groupId");
+  const url =
+    "../images/imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.jpg";
+
+  const userChat = {
+    user: userName,
+    message: url,
+    groupId,
+  };
+  const user = await axios.post(
+    "http://localhost:8080/chats/userschat",
+    userChat,
+    {
+      headers: { Authorization: token },
+    }
+  );
+
+  const childNode = `<div>you: <img src="../images/imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.jpg"></div>`;
+  console.log(childNode);
+  chats.innerHTML += childNode;
 }
