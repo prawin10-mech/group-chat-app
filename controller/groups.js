@@ -56,8 +56,9 @@ exports.postEditUsers = async (req, res) => {
 };
 
 exports.getRemoveUser = (req, res) => {
-  const userId = req.params.id.slice(0, -1);
-  const groupId = req.params.id.slice(-1);
+  const userId = req.query.userId;
+  const groupId = req.query.groupId;
+  console.log(groupId);
   const groupuser = UserGroup.destroy({ where: { userId, groupId } });
   res.send(groupuser);
 };
@@ -74,33 +75,45 @@ exports.addUserToGroup = async (req, res) => {
 };
 
 exports.addUser = async (req, res) => {
-  const userId = req.params.id.slice(0, -1);
-  const groupId = req.params.id.slice(-1);
-  const addUser = await UserGroup.create({
-    groupId,
-    userId,
-  });
-  res
-    .status(200)
-    .json({ message: "user added successfully", success: true, addUser });
+  try {
+    const userId = req.query.userId;
+    const groupId = req.query.groupId;
+    const addUser = await UserGroup.create({
+      groupId,
+      userId,
+    });
+    res
+      .status(200)
+      .json({ message: "user added successfully", success: true, addUser });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.getAddUserToGroup = async (req, res) => {
-  const name = req.params.id;
-  const user = await User.findAll({
-    where: { [Op.or]: [{ name: name }, { phone: name }, { email: name }] },
-  });
-  res.status(200).json(user);
+  try {
+    const name = req.params.id;
+    const user = await User.findAll({
+      where: { [Op.or]: [{ name: name }, { phone: name }, { email: name }] },
+    });
+    res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.finalAddToGroup = async (req, res) => {
-  const userId = req.params.id.slice(0, -1);
-  const groupId = req.params.id.slice(-1);
-  const addUser = await UserGroup.create({
-    groupId,
-    userId,
-  });
-  res
-    .status(200)
-    .json({ message: "user added successfully", success: true, addUser });
+  try {
+    const userId = req.query.userId;
+    const groupId = req.query.groupId;
+    const addUser = await UserGroup.create({
+      groupId,
+      userId,
+    });
+    res
+      .status(200)
+      .json({ message: "user added successfully", success: true, addUser });
+  } catch (err) {
+    console.log(err);
+  }
 };

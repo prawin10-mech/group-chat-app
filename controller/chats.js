@@ -1,4 +1,6 @@
 const Chat = require("../models/chats");
+const Archived = require("../models/archivedChats");
+const cron = require("node-cron");
 
 exports.postUserChats = async (req, res) => {
   try {
@@ -30,3 +32,21 @@ exports.getUserChats = async (req, res) => {
     console.log(err);
   }
 };
+
+function archiveChats() {
+  cron.schedule("0 0 * * *", async function () {
+    const chats = await Chat.findAll();
+    for (let i = 0; i < chats.length; i++) {
+      const { name, message, userId, groupId } = chats[i];
+      const archiveChats = await Archived.create({
+        name,
+        message,
+        userId,
+        groupId,
+      });
+    }
+    const remove = await Chat.destroy({ where: {} });
+  });
+}
+
+archiveChats();

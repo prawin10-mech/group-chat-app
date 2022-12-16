@@ -47,16 +47,23 @@ body {
   margin-left: 15px;
   padding: 10px;
 }
+#chat-container {
+  position: relative;
+  top: 130px;
+}
 
 #add-chats {
   position: relative;
-  top: 40px;
   left: 250px;
   bottom: 80px;
   font-size: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-height: 100%;
+  width: 865px;
+  overflow: auto;
+  /* border: 5px solid red; */
 }
 
 #logout {
@@ -171,8 +178,6 @@ body {
 }
 
 @media screen and (max-width: 900px) {
-  #textBox {
-  }
   #textBox input {
     width: 300px;
     position: relative;

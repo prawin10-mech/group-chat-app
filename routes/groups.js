@@ -14,16 +14,16 @@ router.get("/groups/users/:id", groupController.getGroupUsers);
 
 router.get("/groups/getusers/:id", groupController.postEditUsers);
 
-router.get("/groups/removeuser/:id", groupController.getRemoveUser);
+router.get("/groups/removeuser", groupController.getRemoveUser);
 
 router.get("/groups/groupname/:id", groupController.getGroupName);
 
 router.get("/groups/addusers", groupController.addUserToGroup);
 
-router.get("/groups/adduser/:id", groupController.addUser);
+router.get("/groups/adduser", groupController.addUser);
 
 router.get("/groups/addusertogroup/:id", groupController.getAddUserToGroup);
 
-router.get("groups/addusergroup/:id", groupController.finalAddToGroup);
+router.get("groups/addusergroup", groupController.finalAddToGroup);
 
 module.exports = router;

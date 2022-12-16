@@ -27,14 +27,15 @@
       </div>
       <div id="addGroups"></div>
     </div>
-    <div id="add-chats"></div>
+    <div id="chat-container"><div id="add-chats"></div></div>
+
     <form onsubmit="sendMessage(event)" id="textBox">
       <input type="text" placeholder="Enter message" id="message" />
       <button id="send">SEND</button>
     </form>
 
     <form onsubmit="sendImage(event)" id="fileBox">
-      <input type="file" id="file" id="file" />
+      <input type="file" name="file" id="file" />
       <button id="send">SEND IMAGE</button>
     </form>
     <div class="users" id="users"><h2>USERS</h2></div>

@@ -161,15 +161,19 @@ async function getGroupChats(id) {
       if (userName === name) {
         if (message.length > 50) {
           const childNode = `<div>you: <img src="../images/imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.jpg"></div>`;
-          console.log(childNode);
           chats.innerHTML += childNode;
         } else {
           const childNode = `<div id="addedMessages">you: ${message}</div>`;
           chats.innerHTML += childNode;
         }
       } else {
-        const childNode = `<div >${name}: ${message}</div>`;
-        chats.innerHTML += childNode;
+        if (message.length > 50) {
+          const childNode = `<div>${name}: <img src="${message}"></div>`;
+          chats.innerHTML += childNode;
+        } else {
+          const childNode = `<div >${name}: ${message}</div>`;
+          chats.innerHTML += childNode;
+        }
       }
     }
   } else {
@@ -252,7 +256,7 @@ async function removeUserFromGroup(groupId) {
       user.pop(option.value.slice(0, -1));
       userIds.pop(option.value.slice(-1));
       const removeUser = await axios.get(
-        `http://localhost:8080/groups/removeuser/${userId}${groupId}`
+        `http://localhost:8080/groups/removeuser?userId=${userId}&groupId=${groupId}`
       );
       console.log(removeUser);
     }
@@ -308,7 +312,7 @@ async function adduserToGroups(e) {
   userIds.push(userId);
 
   const addUser = await axios.get(
-    `http://localhost:8080/groups/adduser/${userId}${groupId}`
+    `http://localhost:8080/groups/adduser?userId=${userId}&groupId=${groupId}`
   );
   console.log(addUser);
 
@@ -320,6 +324,9 @@ async function adduserToGroups(e) {
   };
   console.log(obj);
   localStorage.setItem(`${groupName}`, JSON.stringify(obj));
+  setTimeout(() => {
+    window.location.reload();
+  }, 1000);
 }
 
 async function makeAdminForGroup(e) {
@@ -360,6 +367,9 @@ async function MakeAdminToGroups(e) {
     userIds,
   };
   localStorage.setItem(`${groupName}`, JSON.stringify(obj));
+  setTimeout(() => {
+    window.location.reload();
+  }, 1000);
 }
 
 async function sendImage(e) {

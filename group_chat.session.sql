@@ -1,1 +1,1 @@
-SELECT * FROM chats
+SELECT * FROM users

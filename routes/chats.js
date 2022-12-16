@@ -12,3 +12,5 @@ router.post(
 
 router.get("/getuserchats/:id", chatsRouter.getUserChats);
 module.exports = router;
+
+// router.get("/archivechats", chatsRouter.archiveChats);
