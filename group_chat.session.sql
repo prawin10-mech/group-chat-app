@@ -1,1 +1,1 @@
-SELECT * FROM users
+SELECT min(id) FROM users
